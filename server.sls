@@ -1,4 +1,4 @@
-{%- if pillar.motion.server.enabled is defined %}
+{%- if pillar.motion.server.enabled %}
 
 motion_packages:
   pkg:
