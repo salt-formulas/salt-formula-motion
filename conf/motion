@@ -1,0 +1,6 @@
+# set to 'yes' to enable the motion daemon
+{%- if pillar.motion.server.daemon is defined %}
+start_motion_daemon={{ pillar.motion.server.daemon|replace("True", "yes") }}
+{%- else %}
+start_motion_daemon=no
+{%- endif %}
