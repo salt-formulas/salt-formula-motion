@@ -1,10 +1,8 @@
 # Motion
 
-### Suported OS
+Motion is a program that monitors the video signal from cameras. It is able to detect if a significant part of the picture has changed; in other words, it can detect motion. See more below. 
 
-* Ubuntu
-
-### Sample pillar
+## Sample pillars
 
     motion:
       server:
@@ -18,6 +16,7 @@
         webcam_port: 8081
         control_port: 8080
 
-# Read More
+## Read More
 
+* http://www.lavrsen.dk/foswiki/bin/view/Motion/WebHome
 * http://motion.sourceforge.net/
