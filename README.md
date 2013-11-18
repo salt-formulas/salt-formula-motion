@@ -13,8 +13,6 @@ Motion is a program that monitors the video signal from cameras. It is able to d
         quality: 100
         threshold: 1500
         output_normal: on
-        webcam_port: 8081
-        control_port: 8080
 
 ## Sample pillar - custom port listening
 
