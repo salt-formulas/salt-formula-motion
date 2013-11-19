@@ -7,6 +7,8 @@ motion_packages:
     - motion
     - ffmpeg
 
+{%- if pillar.motion.server.devices is defined and pillar.motion.server.devices|length == 1 %}
+
 /etc/motion/motion.conf:
   file:
   - managed
@@ -17,6 +19,21 @@ motion_packages:
   - mode: 644
   - require:
     - pkg: motion_packages
+
+{%- else %}
+{%- for cam in pillar.motion.server.devices %}
+/etc/motion/thread.conf:
+  file:
+  - managed
+  - source: salt://motion/conf/thread{{ loop.index }}.conf
+  - template: jinja
+  - user: root
+  - group: root
+  - mode: 644
+  - require:
+    - pkg: motion_packages
+{%- endfor %}
+{%- endif %}
 
 /etc/default/motion:
   file:
@@ -43,7 +60,6 @@ motion_service:
   - name: motion
   - require:
     - pkg: motion_packages
-    - file: /etc/motion/motion.conf
     - file: /etc/default/motion
 
 {% endif %}

@@ -8,11 +8,21 @@ Motion is a program that monitors the video signal from cameras. It is able to d
       server:
         enabled: true
         daemon: on # | if used another service wrapper off
-        device: "/dev/video0"
         palette: 0
         quality: 100
         threshold: 1500
         output_normal: on
+        control:
+          localhost: off
+          port: 8080
+        authentication:
+          username: admin
+          password: admin
+        devices:
+        - webcam:
+          link: "/dev/video0"
+          localhost: off
+          port: 8081
 
 ## Sample pillar - custom port listening
 
