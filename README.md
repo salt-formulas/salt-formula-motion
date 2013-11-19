@@ -20,7 +20,7 @@ Motion is a program that monitors the video signal from cameras. It is able to d
           password: admin
         devices:
         - webcam:
-          link: "/dev/video0"
+          point: "/dev/video0"
           localhost: off
           port: 8081
 
