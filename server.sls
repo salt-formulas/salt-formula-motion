@@ -6,6 +6,7 @@ motion_packages:
   - names:
     - motion
     - ffmpeg
+    - wxcam
 
 /etc/motion/motion.conf:
   file:
