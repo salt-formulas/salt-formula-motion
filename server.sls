@@ -63,9 +63,10 @@ motion_packages:
 motion_service:
   service.running:
   - name: motion
-  - reload: True
+  - enable: True
   - require:
     - pkg: motion_packages
+  - watch:  
     - file: /etc/default/motion
 
 {% endif %}
