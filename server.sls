@@ -1,14 +1,54 @@
-{%- if pillar.motion.server.enabled %}
+{% from "motion/map.jinja" import motion with context %}
+
+{%- if motion.enabled %}
+
+include:
+- git
 
 motion_packages:
   pkg:
   - installed
-  - names:
-    - motion
-    - ffmpeg
-    - wxcam
+  - names: {{ motion.pkgs }}
 
-/etc/motion/motion.conf:
+motion_user:
+  user.present:
+  - name: motion
+  - system: True
+  - home: /opt/motion
+
+/opt/motion:
+  file.directory:
+  - user: motion
+  - group: motion
+  - mode: 755
+  - makedirs: True
+  require:
+  - user: motion_user
+
+{{ motion.base_url }}:
+  git.latest:
+  - target: {{ motion.base_dir }}
+  - rev: master
+  - require:
+    - pkg: git_packages
+
+motion_install:
+  cmd.run:
+  - name: "autoconf && ./configure && make && make install"
+  - cwd: {{ motion.base_dir }}
+  - user: root
+  - unless: test -d {{ motion.base_dir }}/motion-dist
+  - require:
+    - git: {{ motion.base_url }}
+    - pkg: motion_packages
+
+/usr/local/bin/motion:
+  file.symlink:
+  - target: {{ motion.base_dir }}/motion
+  - require:
+    - cmd: motion_install
+
+{{ motion.base_dir }}/motion.conf:
   file:
   - managed
   - source: salt://motion/conf/motion.conf
@@ -20,6 +60,7 @@ motion_packages:
   - mode: 644
   - require:
     - pkg: motion_packages
+    - cmd: motion_install
 
 {%- if pillar.motion.server.devices is defined and pillar.motion.server.devices|length > 1 %}
 {%- for device in pillar.motion.server.devices %}
@@ -41,17 +82,6 @@ motion_packages:
 {%- endfor %}
 {%- endif %}
 
-/etc/default/motion:
-  file:
-  - managed
-  - source: salt://motion/conf/motion
-  - template: jinja
-  - user: root
-  - group: root
-  - mode: 644
-  - require:
-    - pkg: motion_packages
-
 /var/run/motion:
   file.directory:
   - user: motion
@@ -66,8 +96,8 @@ motion_service:
   - name: motion
   - enable: True
   - require:
-    - pkg: motion_packages
+    - cmd: motion_install
   - watch:  
-    - file: /etc/default/motion
+    - file: {{ motion.base_dir }}/motion.conf
 
 {% endif %}
