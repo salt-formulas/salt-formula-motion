@@ -23,7 +23,7 @@ motion_user:
   require:
   - user: motion_user
 
-{%- if motions.source.engine == "git" %}
+{%- if motion.source.engine == "git" %}
 include:
 - git
 
