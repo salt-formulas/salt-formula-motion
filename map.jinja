@@ -3,7 +3,7 @@
 
 {% set motion_base_url = 'https://github.com/sackmotion/motion.git' %}
 
-{%- if motion.source.engine == "git" %}
+{%- if pillar.motion.server.source.engine == "git" %}
 {% set base_dir = '/srv/motion' %}
 {% set pkgs = ['libjpeg-dev', 'autoconf', "make"] %}
 {%- else %}
