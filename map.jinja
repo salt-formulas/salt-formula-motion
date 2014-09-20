@@ -3,27 +3,37 @@
 
 {% set motion_base_url = 'https://github.com/sackmotion/motion.git' %}
 
+{%- if motions.source.engine == "git" %}
+{% set base_dir = '/srv/motion' %}
+{% set pkgs = ['libjpeg-dev', 'autoconf', "make"] %}
+{%- else %}
+{% set pkgs = ['libjpeg-dev', 'motion'] %}
+{% set base_dir = '/etc/motion' %}
+{%- endif %}
+
 {% set motion = salt['grains.filter_by']({
     'Debian': {
-        'base_dir': '/srv/motion',
+        'base_dir': base_dir,
         'base_url': motion_base_url,
-        'pkgs': ['libjpeg-dev', 'autoconf'],
+        'pkgs': pkgs,
         'version': version,
     },
     'Arch': {
-        'base_dir': '/srv/motion',
+        'base_dir': base_dir,
         'base_url': motion_base_url,
-        'pkgs': ['gcc'],
+        'pkgs': pkgs,
         'version': version,
     },
     'RedHat': {
-        'base_dir': '/srv/motion',
+        'base_dir': base_dir,
+        'pkgs': pkgs,
         'base_url': motion_base_url,
         'version': version,
     },
     'Windows': {
-        'base_dir': '/srv/motion',
+        'base_dir': base_dir,
         'base_url': motion_base_url,
+        'pkgs': pkgs,
         'version': version,
     },
 }, merge=salt['pillar.get']('motion:server')) %}

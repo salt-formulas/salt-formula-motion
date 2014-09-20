@@ -6,6 +6,10 @@ Motion is a program that monitors the video signal from cameras. It is able to d
 
     motion:
       server:
+        source:
+          engine: git
+          address: git@url.com
+          rev: master
         enabled: true
         daemon: on # | if used another service wrapper off
         palette: 0

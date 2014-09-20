@@ -2,9 +2,6 @@
 
 {%- if motion.enabled %}
 
-include:
-- git
-
 motion_packages:
   pkg:
   - installed
@@ -16,6 +13,7 @@ motion_user:
   - system: True
   - home: /opt/motion
 
+
 /opt/motion:
   file.directory:
   - user: motion
@@ -24,6 +22,10 @@ motion_user:
   - makedirs: True
   require:
   - user: motion_user
+
+{%- if motions.source.engine == "git" %}
+include:
+- git
 
 {{ motion.base_url }}:
   git.latest:
@@ -47,6 +49,9 @@ motion_install:
   - target: {{ motion.base_dir }}/motion
   - require:
     - cmd: motion_install
+{%- else %}
+
+{%- endif %}
 
 {{ motion.base_dir }}/motion.conf:
   file:
@@ -64,7 +69,7 @@ motion_install:
 
 {%- if pillar.motion.server.devices is defined and pillar.motion.server.devices|length > 1 %}
 {%- for device in pillar.motion.server.devices %}
-/etc/motion/thread{{ loop.index }}.conf:
+{{ motion.base_dir }}/thread{{ loop.index }}.conf:
   file:
   - managed
   - source: salt://motion/conf/thread.conf
@@ -98,6 +103,6 @@ motion_service:
   - require:
     - cmd: motion_install
   - watch:  
-    - file: {{ motion.base_dir }}/motion.conf
+    - file: {{ motion.base_dir }}/conf/motion.conf
 
 {% endif %}
