@@ -65,7 +65,6 @@ motion_install:
   - mode: 644
   - require:
     - pkg: motion_packages
-    - cmd: motion_install
 
 {%- if pillar.motion.server.devices is defined and pillar.motion.server.devices|length > 1 %}
 {%- for device in pillar.motion.server.devices %}
