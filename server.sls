@@ -99,9 +99,7 @@ motion_service:
   service.running:
   - name: motion
   - enable: True
-  - require:
-    - cmd: motion_install
   - watch:  
-    - file: {{ motion.base_dir }}/conf/motion.conf
+    - file: {{ motion.base_dir }}/motion.conf
 
 {% endif %}
