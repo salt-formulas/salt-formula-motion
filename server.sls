@@ -22,6 +22,8 @@ motion_user:
   - makedirs: True
   require:
   - user: motion_user
+  - groups:
+    - video
 
 {%- if motion.source.engine == "git" %}
 include:
