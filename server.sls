@@ -88,6 +88,17 @@ motion_install:
 {%- endfor %}
 {%- endif %}
 
+/etc/default/motion:
+  file:
+  - managed
+  - source: salt://motion/conf/motion
+  - template: jinja
+  - user: root
+  - group: root
+  - mode: 644
+  - require:
+    - pkg: motion_packages
+
 /var/run/motion:
   file.directory:
   - user: motion
@@ -102,6 +113,7 @@ motion_service:
   - name: motion
   - enable: True
   - watch:  
+    - file: /etc/default/motion
     - file: {{ motion.base_dir }}/motion.conf
 
 {% endif %}
