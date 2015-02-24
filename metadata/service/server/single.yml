@@ -1,0 +1,22 @@
+applications:
+- motion
+parameters:
+  _param:
+    motion_server_admin_name: admin
+    motion_server_admin_password: password
+  motion:
+    server:
+      source:
+        engine: pkg
+      enabled: true
+      daemon: on
+      palette: 0
+      quality: 100
+      threshold: 1500
+      output_normal: on
+      control:
+        localhost: off
+        port: 8080
+      authentication:
+        username: ${_param:motion_server_admin_name}
+        password: ${_param:motion_server_admin_password}
