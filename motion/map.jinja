@@ -1,9 +1,8 @@
-
 {% set version = pillar.motion.server.get("version", "3.12") %}
 
 {% set motion_base_url = 'https://github.com/sackmotion/motion.git' %}
 
-{%- if pillar.motion.server.source.engine == "git" %}
+{%- if pillar.motion.server.get("source", {"engine": "pkg"}).engine == "git" %}
 {% set base_dir = '/srv/motion' %}
 {% set pkgs = ['libjpeg-dev', 'autoconf', "make"] %}
 {%- else %}
