@@ -25,7 +25,7 @@ motion_user:
   - groups:
     - video
 
-{%- if motion.source.engine == "git" %}
+{%- if motion.get("source", {'engine': 'pkg'}).engine == "git" %}
 include:
 - git
 
