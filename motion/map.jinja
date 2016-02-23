@@ -1,9 +1,8 @@
+{%- set version = pillar.motion.server.get("version", "3.12") %}
 
-{% set version = pillar.motion.server.get("version", "3.12") %}
+{%- set motion_base_url = 'https://github.com/sackmotion/motion.git' %}
 
-{% set motion_base_url = 'https://github.com/sackmotion/motion.git' %}
-
-{% set motion = salt['grains.filter_by']({
+{%- set motion = salt['grains.filter_by']({
     'Debian': {
         'base_dir': '/srv/motion',
         'base_url': motion_base_url,

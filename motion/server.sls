@@ -51,7 +51,7 @@ motion_install:
 {{ motion.base_dir }}/motion.conf:
   file:
   - managed
-  - source: salt://motion/conf/motion.conf
+  - source: salt://motion/files/motion.conf
   - template: jinja
   - defaults:
       localhost: {{ pillar.motion.server.control.localhost }}
@@ -67,7 +67,7 @@ motion_install:
 /etc/motion/thread{{ loop.index }}.conf:
   file:
   - managed
-  - source: salt://motion/conf/thread.conf
+  - source: salt://motion/files/thread.conf
   - template: jinja
   - user: root
   - defaults:
