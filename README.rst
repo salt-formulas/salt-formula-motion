@@ -59,7 +59,7 @@ Authentication
           username: admin
           password: admin 
 
-Read More
+Read more
 =========
 
 * http://www.lavrsen.dk/foswiki/bin/view/Motion/WebHome
