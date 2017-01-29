@@ -1,8 +1,14 @@
-# Motion
+
+==============
+Motion formula
+==============
 
 Motion is a program that monitors the video signal from cameras. It is able to detect if a significant part of the picture has changed; in other words, it can detect motion. See more below. 
 
-## Sample pillars
+Sample pillars
+==============
+
+.. code-block:: yaml
 
     motion:
       server:
@@ -28,7 +34,9 @@ Motion is a program that monitors the video signal from cameras. It is able to d
           localhost: off
           port: 8081
 
-## Sample pillar - custom port listening
+Custom port listening
+
+.. code-block:: yaml
 
     motion:
       server:
@@ -40,7 +48,9 @@ Motion is a program that monitors the video signal from cameras. It is able to d
           localhost: on | means localhost-only
           port: 8080
 
-## Sample pillar - authentication 
+Authentication 
+
+.. code-block:: yaml
 
     motion:
       server:
@@ -49,7 +59,8 @@ Motion is a program that monitors the video signal from cameras. It is able to d
           username: admin
           password: admin 
 
-## Read More
+Read More
+=========
 
 * http://www.lavrsen.dk/foswiki/bin/view/Motion/WebHome
 * http://motion.sourceforge.net/
